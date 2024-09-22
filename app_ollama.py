@@ -1,10 +1,9 @@
 # app.py
 
-from flask import Flask, render_template, request, Response, stream_with_context
+from flask import Flask, render_template, request
 import ollama  # Replace this with the actual local Ollama module if different
 import re
 from transformers import pipeline
-import time
 
 app = Flask(__name__)
 
