@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Assistant Suite</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            max-height: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 10px;
+            width: 60%;
+            box-sizing: border-box;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: hsl(215, 63%, 39%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #010101;
+        }
+
+        .chat-container {
+            background-color: rgb(123, 125, 119);
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #000000;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .message {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            align-self: flex-start;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #0760a0;
+            color: white;
+            align-self: flex-end;
+            text-align: left;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            align-self: flex-start;
+            text-align: left;
+            margin-right: auto;
+        }
+
+        .bot-name-container {
+            max-width: 800px;
+            max-height: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .bot-name-input {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .update-button {
+            padding: 8px 12px;
+            background-color: #03619c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .update-button:hover {
+            background-color: #080808;
+        }
+
+        .icon-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .icon-button img {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* Dropdown Button */
+        .dropbtn {
+            background-color: #3498db;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dropdown-content li {
+            padding: 8px 16px;
+            text-decoration: none;
+            display: block;
+            color: black;
+            cursor: pointer;
+        }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content li:hover {
+            background-color: #ddd;
+        }
+
+        /* Show the dropdown menu on button click */
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .illocutionary-force-container {
+            max-width: 800px;
+            max-height: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* Pie chart container styling */
+        .pie-chart-container {
+            margin-top: -100px;
+            margin-left: 200px;
+            text-align: right;
+            height: 180px;
+            width: 180px;
+        }
+    </style>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=eXAbMkf3"></script>
+    <script>
+        function sendEmail() {
+            alert("Please send an email to support@updraftplus.com");
+        }
+
+        function continueConversation() {
+            alert("Then please ask me something meaningful");
+        }
+
+        function scrollToBottom() {
+            var chatContainer = document.getElementById("chat-container");
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        window.onload = scrollToBottom;
+
+        function speak(text) {
+            var tempElement = document.createElement("div");
+            tempElement.innerHTML = text;
+            var strippedText = tempElement.textContent || tempElement.innerText || "";
+            responsiveVoice.speak(strippedText, "UK English Male");
+        }
+
+        function startRecognition() {
+            var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                var result = event.results[0][0].transcript;
+                document.getElementById('user_input').value = result;
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Recognition error:', event.error);
+            };
+        }
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function toggleDropdown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        // Function to create pie chart for illocutionary forces
+        function createPieChart(labels, data) {
+            var ctx = document.getElementById('forcePieChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Illocutionary Force Distribution',
+                        data: data,
+                        backgroundColor: [
+                            '#FF6384',
+                            '#36A2EB',
+                            '#FFCE56',
+                            '#4BC0C0',
+                            '#9966FF',
+                            '#FF9F40'
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    var value = tooltipItem.raw;
+                                    return labels[tooltipItem.dataIndex] + ': ' + value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Prepare the data for the pie chart based on illocutionary force history
+        document.addEventListener('DOMContentLoaded', function() {
+            var illocutionaryForceHistory = JSON.parse('{{ illocutionary_force_history | tojson | safe }}');
+            var forceCounts = {};
+            illocutionaryForceHistory.forEach(function(force) {
+                if (forceCounts[force]) {
+                    forceCounts[force]++;
+                } else {
+                    forceCounts[force] = 1;
+                }
+            });
+
+            var labels = Object.keys(forceCounts);
+            var data = Object.values(forceCounts);
+
+            createPieChart(labels, data);
+        });
+    </script>
+
+
+</head>
+<body>
+
+    <div class="bot-name-container">
+
+        <!-- Dropdown to show illocutionary forces -->
+
+        <button onclick="toggleDropdown()" class="dropbtn">Illocutionary Forces Used</button>
+        <div id="myDropdown" class="dropdown-content">
+            <ul>
+                {% for force in illocutionary_force_history %}
+                    <li>{{ force }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!--<center><p>You don't like the "BOT NAME?" Change it here.</p></center>-->
+        <label for="botNameInput">Change my name:</label>
+        <input type="text" id="botNameInput" class="bot-name-input" placeholder="Enter bot name">
+        <button class="update-button" onclick="updateBotName()">Update</button>
+    </div>
+
+
+    <div class="container">
+        <header id="header">
+            <img src="../static/ConvoStem_NoBackground.png" alt="Your Logo" style="width:70px;height:80px;">
+            <!-- Pie chart container -->
+            <div class="pie-chart-container">
+                <canvas id="forcePieChart" style="display: block; box-sizing: border-box; height:50px; width:50px;"></canvas>
+            </div>
+            <h1 id="botName">Automated Assistant Suite</h1>
+        </header>
+
+        <div class="chat-container" id="chat-container">
+            {% for message in chat_history[:-2] %}
+                <div class="{{ message.role }}-message message">{{ message.content|safe }}</div>
+            {% endfor %}
+            {% if user_input %}
+                <div class="user-message message">{{ user_input }}</div>
+                <div id="bot-response" class="bot-message message">{{ response|safe }}</div>
+            {% endif %}
+        </div>
+        <form method="POST" action="/get_response">
+            <label for="user_input" style="padding-top: 30px;"> Let's chat:</label>
+            <input type="text" id="user_input" name="user_input" placeholder="Type your message here" required>
+            <input type="hidden" id="illocutionary_force_input" name="illocutionary_force_input" value="{{ illocutionary_force }}">
+            <button type="submit">Submit</button>
+            <button type="button" class="icon-button" onclick="startRecognition()">
+                <img src="../static/microphone_icon.png" alt="Microphone Icon">
+            </button>
+            <button type="button" class="icon-button" onclick="speak(document.getElementById('bot-response').innerHTML)">
+                <img src="../static/speaker_icon.png" alt="Speaker Icon">
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function updateBotName() {
+            var botNameInput = document.getElementById("botNameInput").value;
+            var botNameHeader = document.getElementById("botName");
+            botNameHeader.textContent = botNameInput;
+        }
+    </script>
+</body>
+</html>
