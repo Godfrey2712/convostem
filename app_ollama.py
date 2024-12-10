@@ -11,7 +11,7 @@ app = Flask(__name__)
 with open("knowledge.txt", "r", encoding="utf-8") as file:
     knowledge_text = file.read()
 
-# Initialize chat history as an empty list
+# Initialize chat history and illocutionary force history
 chat_history = []
 illocutionary_force_history = []
 
@@ -32,7 +32,6 @@ def get_response():
     
     # Get illocutionary force classification
     illocutionary_force = classifier(user_input)[0]['label']
-    #print(f"Illocutionary Force: {illocutionary_force}")
 
     # Append the illocutionary force to the history
     illocutionary_force_history.append(illocutionary_force)
@@ -47,13 +46,11 @@ def get_response():
     chat_history.append({"role": "user", "content": user_input})
     chat_history.append({"role": "assistant", "content": response})
 
-    #return response
+    print(illocutionary_force_history)
+
     return render_template("index.html", user_input=user_input, response=response, chat_history=chat_history, illocutionary_force_history=illocutionary_force_history)
 
 def generate_response(user_input, knowledge_text, illocutionary_force):
-    # Formulate the single-sentence instruction
-    #instruction = f"Answer the query '{user_input}' using the knowledge '{knowledge_text}', considering the user's intent '{illocutionary_force}'. If unsure, reply 'I AM NOT SURE'."
-
     # Build context from chat history
     context = ""
     for entry in chat_history[-CONTEXT_WINDOW*2:]:
@@ -70,23 +67,12 @@ def generate_response(user_input, knowledge_text, illocutionary_force):
     Aim to respond in a manner that is as human-like as possible, enhancing the user's perception of interacting with a real person.
     """
 
-    # Creating a single string for the prompt
-    prompt = f"""
-    System: You are a helpful Automated Assistance Support Agent
-    {context}
-    User: {instruction}
-    Knowledge: {knowledge_text}
-    """
-
     # Call Ollama local model to generate response
     response = ollama.generate(
-        #model="llama2:latest",  # Specify the Ollama model
-        model="tinyllama:latest",
+        model="llama3:latest",
         prompt=instruction
     )
 
-    print('======= \n', illocutionary_force)
-    print ('======= \n', context)
     response_content = response.get('response', '').strip()
 
     # Check if the response contains 'I AM NOT SURE' (case-insensitive)
