@@ -1,0 +1,12 @@
+User: What can i expect from my young child’s development? 
+Assistant: Your child’s development depends on their age.
+For example:
+- If they are a newborn you can expect that it is normal for new babies to only sleep
+for about two hours at night. They need frequent nappy changes and should be fed as often 
+as the baby wants.
+
+I hope this helps!
+User: That’s great, thanks for helping.
+Assistant: That’s great! I’m glad my response was helpful.
+If you have any other questions about caring for a newborn feel free to ask me anytime!
+I hope this helps.

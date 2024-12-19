@@ -36,7 +36,7 @@ label {
 
 input {
     padding: 10px;
-    width: 60%;
+    width: 70%;
     box-sizing: border-box;
     margin-right: 10px;
 }
@@ -96,6 +96,78 @@ button:hover {
     margin-right: auto;
 }
 
+.hamburger-menu {
+    position: absolute;
+    width: 200px;
+    top: 5px;
+    right: 20px;
+
+}
+
+.hamburger {
+    background-color: #3498db;
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+.toolbar {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 200px;
+    flex-direction: column;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.toolbar .dropdown {
+    position: relative;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.toolbar .dropbtn {
+    background-color: #3498db;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+.toolbar .dropdown-content {
+    display: none;
+    position: relative;
+    background-color: #f1f1f1;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 10px;
+}
+
+.toolbar .dropdown-content label,
+.toolbar .dropdown-content input,
+.toolbar .dropdown-content select,
+.toolbar .dropdown-content button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.toolbar .dropdown:hover .dropdown-content {
+    display: block;
+}
+
 .bot-name-container {
     max-width: 800px;
     max-height: 800px;
@@ -107,14 +179,13 @@ button:hover {
     margin-top: 10px;
 }
 
-.bot-name-input {
-    width: 200px;
+.bot-name-input, .file-upload-container input[type="file"], .knowledge-selection-container select, .api-selection-container select, .model-selection-container select {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-.update-button {
+.update-button, .file-upload-container button {
     padding: 8px 12px;
     background-color: #03619c;
     color: white;
@@ -123,7 +194,7 @@ button:hover {
     cursor: pointer;
 }
 
-.update-button:hover {
+.update-button:hover, .file-upload-container button:hover {
     background-color: #080808;
 }
 
@@ -135,8 +206,16 @@ button:hover {
 }
 
 .icon-button img {
-    width: 30px;
-    height: 30px;
+    width: 27px;
+    height: 27px;
+}
+
+.icon-button:hover img {
+    filter: brightness(0.2);
+}
+
+.icon-button:active img {
+    filter: brightness(0.8);
 }
 
 /* Dropdown Button */
@@ -192,9 +271,38 @@ button:hover {
 
 /* Pie chart container styling */
 .pie-chart-container {
-    margin-top: -100px;
-    margin-left: 200px;
-    text-align: right;
+    text-align: center;
     height: 180px;
     width: 180px;
+    margin: 0 auto;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-content .logo {
+    width: 70px;
+    height: 80px;
+    margin-right: 20px;
+}
+
+.evaluation-scores {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.evaluation-scores h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.evaluation-scores p {
+    margin: 5px 0;
+    color: #555;
 }

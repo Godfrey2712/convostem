@@ -3,34 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automated Assistant Suite</title>
+    <title>Intentifier</title>
     <link rel="stylesheet" href="static/styles.css">
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=eXAbMkf3"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="static/scripts.js"></script>
 </head>
 <body>
-    <div class="bot-name-container">
-        <button onclick="toggleDropdown()" class="dropbtn">Illocutionary Forces Used</button>
-        <div id="myDropdown" class="dropdown-content">
-            <ul>
-                {% for force in illocutionary_force_history %}
-                    <li>{{ force }}</li>
-                {% endfor %}
-            </ul>
+    <div class="hamburger-menu">
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <div class="toolbar" id="toolbar">
+            <div class="dropdown">
+                <button class="dropbtn">Bot Name</button>
+                <div class="dropdown-content">
+                    <label for="botNameInput">Change my name:</label>
+                    <input type="text" id="botNameInput" class="bot-name-input" placeholder="Enter bot name">
+                    <button class="update-button" onclick="updateBotName()">Update</button>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Add Knowledge File</button>
+                <div class="dropdown-content">
+                    <label for="fileUpload">Upload Knowledge File:</label>
+                    <input type="file" id="fileUpload" name="fileUpload" accept=".txt, .pdf">
+                    <button onclick="uploadFile()">Upload</button>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Select Knowledge File</button>
+                <div class="dropdown-content">
+                    <label for="knowledgeSelection">Select Knowledge File:</label>
+                    <select id="knowledgeSelection" onchange="updateKnowledgeFile()">
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">LLM Type</button>
+                <div class="dropdown-content">
+                    <label for="apiSelection">Select API:</label>
+                    <select id="apiSelection" onchange="updateApiSelection()">
+                        <option value="openai">OpenAI</option>
+                        <option value="ollama">Ollama</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Model Option</button>
+                <div class="dropdown-content">
+                    <label for="modelSelection">Select Model:</label>
+                    <select id="modelSelection" onchange="updateModelSelection()">
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Include Illocutionary Force?</button>
+                <div class="dropdown-content">
+                    <label for="includeIllocutionaryForce">Include Illocutionary Force:</label>
+                    <select id="includeIllocutionaryForce" onchange="updateIllocutionaryForceOption()">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <button class="dropbtn">Download Chat</button>
+                <div class="dropdown-content">
+                    <button onclick="downloadChat('user')">User Chat</button>
+                    <button onclick="downloadChat('bot')">Bot Chat</button>
+                    <button onclick="downloadChat('all')">All Chat</button>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button onclick="toggleDropdown()" class="dropbtn">Illocutionary Forces Used</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <ul>
+                        {% for force in illocutionary_force_history %}
+                            <li>{{ force }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Evaluation Score</button>
+                <div class="dropdown-content">
+                    <div class="evaluation-scores">
+                        <h3>Evaluation Scores</h3>
+                        <p>BLEU: {{ evaluation_scores.get('BLEU', 'N/A') }}</p>
+                        <p>ROUGE-1: {{ evaluation_scores.get('ROUGE-1', 'N/A') }}</p>
+                        <p>ROUGE-2: {{ evaluation_scores.get('ROUGE-2', 'N/A') }}</p>
+                        <p>ROUGE-L: {{ evaluation_scores.get('ROUGE-L', 'N/A') }}</p>
+                        <p>METEOR: {{ evaluation_scores.get('METEOR', 'N/A') }}</p>
+                        <p>Perplexity: {{ evaluation_scores.get('Perplexity', 'N/A') }}</p>
+                        <p>BERT-Precision: {{ evaluation_scores.get('BERT-Precision', 'N/A') }}</p>
+                        <p>BERT-Recall: {{ evaluation_scores.get('BERT-Recall', 'N/A') }}</p>
+                        <p>BERT-F1: {{ evaluation_scores.get('BERT-F1', 'N/A') }}</p>
+                        <p>QA-Ref: {{ evaluation_scores.get('QA-Ref', 'N/A') }}</p>
+                        <p>QA-Cand: {{ evaluation_scores.get('QA-Cand', 'N/A') }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <label for="botNameInput">Change my name:</label>
-        <input type="text" id="botNameInput" class="bot-name-input" placeholder="Enter bot name">
-        <button class="update-button" onclick="updateBotName()">Update</button>
     </div>
 
     <div class="container">
         <header id="header">
-            <img src="../static/ConvoStem_NoBackground.png" alt="Your Logo" style="width:70px;height:80px;">
+            <div class="header-content">
+                <img src="../static/ConvoStem_NoBackground.png" alt="Your Logo" class="logo">
+                <h1 id="botName">Intentifier</h1>
+            </div>
             <div class="pie-chart-container">
                 <canvas id="forcePieChart" style="display: block; box-sizing: border-box; height:50px; width:50px;"></canvas>
             </div>
-            <h1 id="botName">Automated Assistant Suite</h1>
         </header>
 
         <div class="chat-container" id="chat-container">
@@ -43,10 +136,12 @@
             {% endif %}
         </div>
         <form method="POST" action="/get_response">
-            <label for="user_input" style="padding-top: 30px;"> Let's chat:</label>
+            <label for="user_input" style="padding-top: 30px;"> Chat: </label>
             <input type="text" id="user_input" name="user_input" placeholder="Type your message here" required>
             <input type="hidden" id="illocutionary_force_input" name="illocutionary_force_input" value="{{ illocutionary_force }}">
-            <button type="submit">Submit</button>
+            <button type="submit" class="icon-button">
+                <img src="../static/submit_icon.png" alt="Submit Icon">
+            </button>
             <button type="button" class="icon-button" onclick="startRecognition()">
                 <img src="../static/microphone_icon.png" alt="Microphone Icon">
             </button>
@@ -57,48 +152,10 @@
     </div>
 
     <script>
-        // Function to create pie chart for illocutionary forces
-        function createPieChart(labels, data) {
-            var ctx = document.getElementById('forcePieChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Illocutionary Force Distribution',
-                        data: data,
-                        backgroundColor: [
-                            '#FF6384',
-                            '#36A2EB',
-                            '#FFCE56',
-                            '#4BC0C0',
-                            '#9966FF',
-                            '#FF9F40'
-                        ],
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    var value = tooltipItem.raw;
-                                    return labels[tooltipItem.dataIndex] + ': ' + value;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
 
         document.addEventListener('DOMContentLoaded', function() {
+            updateModelOptions();
+            updateKnowledgeOptions();
             // Parse the illocutionary_force_history from the Python context
             try {
                 var illocutionaryForceHistory = JSON.parse('{{ illocutionary_force_history | tojson | safe }}');
@@ -121,6 +178,7 @@
                 console.error('Error parsing illocutionary_force_history:', error);
             }
         });
+        //downloadChat(type);
     </script>
 
 </body>
