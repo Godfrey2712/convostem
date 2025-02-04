@@ -70,6 +70,8 @@ Once running, access the application in your browser at [http://localhost:5000](
 
 ### User Interface
 
+![Alt text](ui/basic.png)
+
 The application provides the following features for user interaction:
 
 - **Bot Name Customization**: Users can change the bot's name via an input field and an update button.
