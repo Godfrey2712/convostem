@@ -70,7 +70,7 @@ Once running, access the application in your browser at [http://localhost:5000](
 
 ### User Interface
 
-![Alt text](ui/basic.png)
+![Alt text](static/basic.png)
 
 The application provides the following features for user interaction:
 
