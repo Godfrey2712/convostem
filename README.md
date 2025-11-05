@@ -1,5 +1,4 @@
-# ConvoStem
-
+# Intentifier
 ConvoStem is an advanced natural language processing application designed to respond to user queries using various language models and the user's inherent illocutionary forces.
 
 ## Prerequisites
