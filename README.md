@@ -116,3 +116,31 @@ For more details, refer to the source code in the repository.
 **Repository:** [GitHub - ConvoStem](https://github.com/Godfrey2712/convostem)
 
 ***Online Resource** [Resource] - (https://arxiv.org/pdf/2502.10916)
+
+---
+
+## References
+
+
+### Pre-trained Model Used
+
+```bibtex
+@misc{godfrey_inyama_2026_intent,
+    author       = {Inyama, Godfrey},
+    title        = {amf_illoc_force_intent_recognition},
+    year         = {2026},
+    howpublished = {https://huggingface.co/Godfrey2712/amf_illoc_force_intent_recognition},
+    doi          = {10.57967/hf/8221},
+}
+```
+
+### Thesis
+
+```bibtex
+@phdthesis{inyama2024exploiting,
+    title={Exploiting Illocutionary Forces in Dialogue Structures for Enhancing Authorship Identification},
+    author={Inyama, Godfrey},
+    school={University of Dundee},
+    year={2025}
+}
+```
