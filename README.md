@@ -113,12 +113,6 @@ For more details, refer to the source code in the repository.
 
 ---
 
-**Repository:** [GitHub - ConvoStem](https://github.com/Godfrey2712/convostem)
-
-***Online Resource** [Resource] - (https://arxiv.org/pdf/2502.10916)
-
----
-
 ## References
 
 
@@ -137,7 +131,7 @@ For more details, refer to the source code in the repository.
 ### Thesis
 
 ```bibtex
-@phdthesis{inyama2024exploiting,
+@mastersthesis{inyama2024exploiting,
     title={Exploiting Illocutionary Forces in Dialogue Structures for Enhancing Authorship Identification},
     author={Inyama, Godfrey},
     school={University of Dundee},
