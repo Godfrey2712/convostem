@@ -37,7 +37,7 @@ Austin introduced the foundational theory [@austin1962speech] whereas Searle car
 For some dialogue systems, evaluation Metrics still uses bilingual evaluation (BLEU), ROUGE [@lin-2004-rouge],
 METEOR [@banerjee-lavie-2005-meteor], and BERTScore [@devlin2018bert] which we adopt for benchmarking. 
 
-The current approach leverages using LLMs [@chavan2022large] @[r-etal-2024-shot] [@yu2024breakingceilingllmcommunity]
+The current approach leverages using LLMs [@chavan2022large] [@r-etal-2024-shot] [@yu2024breakingceilingllmcommunity]
 
 # Software design
 
